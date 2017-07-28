@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content">
+<ImageView
+    android:layout_margin="5dp"
+    android:id="@+id/movie_poster_in"
+    android:layout_width="85dp"
+    android:layout_gravity="center"
+    android:layout_height="140dp" />
+<LinearLayout
+    android:layout_gravity="center_vertical"
+    android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_margin="10dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="10dp"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/movie_title_in"
+        android:text="攻壳总动员"
+        style="@style/move_title"/>
+    <TextView
+        android:text="评分：6.3"
+        android:id="@+id/movie_rating_in"
+        style="@style/move_message"
+         />
+    <TextView
+        android:text="导演：鲁伯特.桑德斯"
+        android:id="@+id/movie_director_in"
+        style="@style/move_message"
+        />
+    <TextView
+        android:text="主演:斯嘉丽.约翰逊/披露.艾匹斯/北野武"
+        android:id="@+id/movie_casts_in"
+        style="@style/move_message"
+        />
+    <TextView
+        android:text="5726人看过"
+        android:id="@+id/movie_saw_in"
+        style="@style/move_saw"
+
+        />
+</LinearLayout>
+</LinearLayout>

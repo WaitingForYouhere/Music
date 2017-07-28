@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#a8ec63"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.lenovo.music.activity.PlayingSongActivity">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/playing_song_toolbar"
+        android:background="@color/colorLightRed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></android.support.v7.widget.Toolbar>
+    <ImageView
+        android:id="@+id/plagying_head"
+        android:background="@drawable/radius"
+        android:layout_centerInParent="true"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:padding="20dp"
+        android:src="@drawable/latest"/>
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_marginLeft="30dp"
+            android:id="@+id/playing_cycle"
+            android:background="@drawable/cycle"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+        <Button
+            android:layout_marginLeft="30dp"
+            android:id="@+id/playing_last"
+            android:background="@drawable/last"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+        <Button
+            android:layout_marginLeft="30dp"
+            android:id="@+id/playing_play"
+            android:background="@drawable/play2"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+        <Button
+            android:layout_marginLeft="30dp"
+            android:id="@+id/playing_next"
+            android:background="@drawable/next"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+        <Button
+            android:layout_marginLeft="30dp"
+            android:id="@+id/playing_list"
+            android:background="@drawable/playinglist"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/plagying_head"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <TextView
+            android:id="@+id/song_time"
+            android:text="00:00"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <SeekBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/song_progressBar"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/song_length"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</RelativeLayout>

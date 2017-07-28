@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <include
+    android:id="@+id/local_music"
+    layout="@layout/music_click_layout"/>
+    <include
+    android:id="@+id/local_latest_play"
+    layout="@layout/music_click_layout"/>
+    <include
+    android:id="@+id/local_download_manager"
+    layout="@layout/music_click_layout"/>
+    <include
+    android:id="@+id/local_myRadio"
+    layout="@layout/music_click_layout"/>
+    <include
+    android:id="@+id/local_myCollection"
+    layout="@layout/music_click_layout"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:background="#eeeeee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/open_and_close"
+            android:layout_margin="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/close"
+            android:layout_width="10dp"
+            android:layout_height="10dp" />
+        <TextView
+            android:text="创建的歌单(1)"
+            android:layout_gravity="center_vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/music_manage"
+            android:layout_gravity="right|center_vertical"
+            android:layout_margin="10dp"
+            android:src="@drawable/listensetting"
+            android:layout_width="20dp"
+            android:layout_height="20dp" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.lenovo.music.activity.MainActivity">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/main_tool"
+        android:background="@color/colorLightRed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></android.support.v7.widget.Toolbar>
+
+    <com.example.lenovo.music.myview.NestedViewPager
+        android:id="@+id/main_viewpager"
+        android:layout_below="@+id/main_tool"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </com.example.lenovo.music.myview.NestedViewPager>
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.example.lenovo.music.myview.PlayViewGroup
+            android:id="@+id/playing_list_main"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="30dp">
+        </com.example.lenovo.music.myview.PlayViewGroup>
+        <com.example.lenovo.music.myview.PlayingButton
+            android:id="@+id/bt_play_bottom"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+        <Button
+            android:layout_marginLeft="10dp"
+            android:id="@+id/bt_play_list"
+            android:layout_width="30dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/playlist"
+            android:layout_height="30dp" />
+    </LinearLayout>
+</RelativeLayout>

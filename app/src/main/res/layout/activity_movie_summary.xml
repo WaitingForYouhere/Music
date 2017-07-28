@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_movie_summary"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.lenovo.music.activity.MovieSummaryActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/summary_image_movie"
+            android:layout_width="100dp"
+            android:layout_height="150dp" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/sum_original_movie"
+                style="@style/move_message"/>
+            <merge >
+            <TextView
+                android:id="@+id/sum_rating_movie"
+                android:textColor="#df5172"
+                style="@style/move_message"/>
+            <TextView
+                android:id="@+id/sum_saw_movie"
+                style="@style/move_message"/>
+            </merge>
+            <TextView
+                android:id="@+id/sum_type_movie"
+                style="@style/move_message"/>
+            <TextView
+                android:id="@+id/sum_year_movie"
+                style="@style/move_message"/>
+            <TextView
+                android:id="@+id/sum_locate_movie"
+                style="@style/move_message"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/casts_image1"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="150dp" />
+        <ImageView
+            android:id="@+id/casts_image2"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="150dp" />
+        <ImageView
+            android:id="@+id/casts_image3"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="150dp" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/sum_title_movie"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/sum_summary_movie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

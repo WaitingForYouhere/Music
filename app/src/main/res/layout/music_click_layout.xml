@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:padding="12dp"
+    android:layout_height="wrap_content">
+<ImageView
+    android:id="@+id/music_click_image"
+    android:src="@drawable/music"
+    android:layout_width="20dp"
+    android:layout_height="20dp" />
+
+    <TextView
+        android:layout_toRightOf="@+id/music_click_image"
+        android:id="@+id/music_click_text"
+        android:layout_marginLeft="10dp"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        android:text="本地音乐"
+        android:layout_gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_toRightOf="@id/music_click_image"
+        android:layout_below="@+id/music_click_text"
+        android:layout_width="match_parent"
+        android:background="#dddddd"
+        android:layout_height="1px" />
+    <TextView
+        android:id="@+id/music_click_count"
+        android:layout_toRightOf="@+id/music_click_text"
+        android:layout_marginLeft="10dp"
+        android:text="(18)"
+        android:layout_gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/music_click_where"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/sound"
+        android:layout_width="20dp"
+        android:layout_height="20dp" />
+</RelativeLayout>
