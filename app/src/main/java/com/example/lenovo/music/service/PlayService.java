@@ -99,6 +99,9 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
             return "未知";
         }
     }
+    public int getPosition(){
+        return position;
+    }
     public boolean isPlaying(){
         return mp.isPlaying();
     }

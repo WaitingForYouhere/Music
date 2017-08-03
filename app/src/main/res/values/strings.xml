@@ -1,6 +1,16 @@
 <resources>
-    <string name="app_name">Music</string>
+    <string name="app_name">娱乐风向</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="removeText"><div class="global-header">
+<div class="main-wrap">
+<div class="download">
+<a class="button" data-device="ios" href="https://itunes.apple.com/cn/app/id639087967?mt=8"><i class="sprite-ico-Button_iPhone2x"></i> <span>iPhone</span></a>
+<a class="button" data-device="android-local" href="/download/android"><i class="sprite-ico-Button_Android2x"></i> <span>Android</span></a>
+</div>
+<a href="/" target="_self" title="知乎日报"><i class="web-logo"></i></a>
+</div>
+</div></string>
+
 </resources>

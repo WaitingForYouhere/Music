@@ -9,18 +9,26 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.example.lenovo.music.R;
 import com.example.lenovo.music.adapter.FragmentViewPagerAdapter;
+import com.example.lenovo.music.adapter.MainRecyclerAdapter;
 import com.example.lenovo.music.adapter.PlayingSongListAdapter;
 import com.example.lenovo.music.bean.Song;
 import com.example.lenovo.music.dao.MusicDao;
@@ -39,7 +47,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,
-        PlayViewGroup.OnClickAction,AdapterView.OnItemClickListener ,PlayingSongListAdapter.OnDeleteListener{
+        PlayViewGroup.OnClickAction,AdapterView.OnItemClickListener ,PlayingSongListAdapter.OnDeleteListener,
+        MainRecyclerAdapter.OnItemClickLitener{
 
     private NestedViewPager nestedViewPager;
     private List<Fragment> fragmentList=new ArrayList<Fragment>();
@@ -51,40 +60,136 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private List<Song> locallist=new ArrayList<Song>();
     private PlaylistPopUpWindow popUpWindow;
     private PlayingSongListAdapter adapter;
+    private RadioGroup radioGroup;
+    private RadioButton rbt_listen;
+    private RadioButton rbt_find;
+    private RadioButton rbt_more;
+    private LinearLayout main_bottom_layout;
+    private RecyclerView main_bottom_recycle;
+    private MainRecyclerAdapter rectadapter;
+    private LinearLayoutManager linearLayoutManager;
+    private int index=0;
+    private boolean isShowing=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        requestWindowFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         setContentView(R.layout.activity_main);
         toolbar= (Toolbar) findViewById(R.id.main_tool);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.caidan);
+        toolbar.setNavigationIcon(R.mipmap.titlebar_menu);
+        toolbar.setTitle("");
         getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.e("菜单", "onClick: " );
             }
         });
-        playList= (PlayViewGroup) findViewById(R.id.playing_list_main);
-        playList.setOnClickAction(this);
-        bt_play_list= (Button) findViewById(R.id.bt_play_list);
-        bt_play_list.setOnClickListener(this);
+//        playList= (PlayViewGroup) findViewById(R.id.playing_list_main);
+//        playList.setOnClickAction(this);
         nestedViewPager= (NestedViewPager) findViewById(R.id.main_viewpager);
         fragmentList.add(new FragmentListen());
         fragmentList.add(new FragmentSearch());
         fragmentList.add(new FragmentMoments());
         FragmentViewPagerAdapter adapter=new FragmentViewPagerAdapter(this.getSupportFragmentManager(),
                 nestedViewPager,fragmentList);
+        nestedViewPager.setAdapter(adapter);
+        nestedViewPager.setCurrentItem(1);
+
+        //底部播放播放区
+        main_bottom_layout= (LinearLayout) findViewById(R.id.main_bottom_layout);
+        main_bottom_recycle= (RecyclerView) findViewById(R.id.playing_list_main);
+        linearLayoutManager =  new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+        main_bottom_recycle.setLayoutManager(linearLayoutManager);
+        main_bottom_recycle.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    if(main_bottom_recycle.getChildCount()>0){
+                        main_bottom_recycle.getChildAt(0).requestFocus();
+                    }
+                }
+            }
+        });
+        main_bottom_recycle.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if(dx>0){
+                    pservice.PlayNext();
+                }else if(dx<0){
+                    pservice.PlayLast();
+                }
+            }
+        });
+
+
+        bt_play_list = (Button) findViewById(R.id.bt_play_list);
+        bt_play_list.setOnClickListener(this);
         playingButton= (PlayingButton) findViewById(R.id.bt_play_bottom);
         playingButton.setOnClickListener(this);
+        main_bottom_layout.setVisibility(View.GONE);
+
+        radioGroup= (RadioGroup) findViewById(R.id.rg_home_viewpager_contorl);
+        rbt_listen= (RadioButton) findViewById(R.id.rb_listen_pager);
+        rbt_find= (RadioButton) findViewById(R.id.rb_find_pager);
+        rbt_more= (RadioButton) findViewById(R.id.rb_more_pager);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.rb_listen_pager:
+                        nestedViewPager.setCurrentItem(0);
+                        break;
+                    case R.id.rb_find_pager:
+                        nestedViewPager.setCurrentItem(1);
+                        break;
+                    case R.id.rb_more_pager:
+                        nestedViewPager.setCurrentItem(2);
+                        break;
+                }
+            }
+        });
+        nestedViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position){
+                    case 0:
+                        rbt_listen.setChecked(true);
+                        break;
+                    case 1:
+                        rbt_find.setChecked(true);
+                        break;
+                    case 2:
+                        rbt_more.setChecked(true);
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        //播放按钮
+
 
         ServiceConnection connection = new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
                 PlayService.MyBinder binder = (PlayService.MyBinder) service;
                 pservice = binder.getService();
+                rectadapter=new MainRecyclerAdapter(getApplicationContext(),locallist,pservice);
+                main_bottom_recycle.setAdapter(rectadapter);
             }
 
             @Override
@@ -106,13 +211,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         timer.schedule(task,0,1000);
         initDataWindow();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(rectadapter!=null){
+        rectadapter.setmOnItemClickLitener(this);}
+    }
+
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             if(pservice.isPlaying()) {
+                main_bottom_layout.setVisibility(View.VISIBLE);
                 playingButton.setIsPlaying(pservice.isPlaying());
 //            Log.e("percent",pservice.getPercentage()+"");
                 playingButton.setPercentage(pservice.getPercentage() * 100 / pservice.getLength());
+
+                    main_bottom_recycle.scrollToPosition(pservice.getPosition());
+
+
             }
         }
     };
@@ -176,7 +294,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent=new Intent(MainActivity.this,PlayingSongActivity.class);
         startActivity(intent);
     }
-
+    //popupwindow点击事件
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         pservice.doPlay(locallist,position);
@@ -187,5 +305,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void ondelete(int position) {
         locallist.remove(position);
         adapter.notifyDataSetChanged();
+    }
+
+    //底部播放栏歌单点击事件
+    @Override
+    public void onItemClick(View view, int position) {
+        Log.e("tag",position+"");
+        Intent intent=new Intent(MainActivity.this,PlayingSongActivity.class);
+        startActivity(intent);
     }
 }

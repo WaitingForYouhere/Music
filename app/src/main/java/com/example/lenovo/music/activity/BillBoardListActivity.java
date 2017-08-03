@@ -11,12 +11,16 @@ import android.os.IBinder;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -25,6 +29,7 @@ import com.example.lenovo.music.R;
 import com.example.lenovo.music.adapter.SongListAdapter;
 import com.example.lenovo.music.bean.Billboard;
 import com.example.lenovo.music.bean.Song;
+import com.example.lenovo.music.myview.RanklistPopUpWindow;
 import com.example.lenovo.music.service.PlayService;
 import com.example.lenovo.music.util.SongUtil;
 
@@ -34,7 +39,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class BillBoardListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener,SongListAdapter.OnDoMoreClickListener {
+public class BillBoardListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener,SongListAdapter.OnDoMoreClickListener,View.OnClickListener {
 
     @Bind(R.id.bill_board_head)
     RelativeLayout billBoardHead;
@@ -47,10 +52,12 @@ public class BillBoardListActivity extends AppCompatActivity implements AdapterV
     private Billboard billboard;
     private int playingState=-1;
     private PlayService pservice;
+    private RanklistPopUpWindow popUpWindow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         setContentView(R.layout.activity_bill_board_list);
         int height=getWindowManager().getDefaultDisplay().getHeight();
         ButterKnife.bind(this);
@@ -58,6 +65,7 @@ public class BillBoardListActivity extends AppCompatActivity implements AdapterV
         billList.setOnItemClickListener(this);
 //        billList.setMinimumHeight(height);
         adapter = new SongListAdapter(this, R.layout.song_item, list);
+        adapter.setDoMoreClickListener(this);
         billList.setAdapter(adapter);
 
 
@@ -92,7 +100,10 @@ public class BillBoardListActivity extends AppCompatActivity implements AdapterV
 
         String type = sp.getString("type","");
         Log.e("type",type);
-
+        Intent intent=getIntent();
+        Billboard bill= (Billboard) intent.getExtras().getSerializable("billboard");
+        Glide.with(getApplicationContext()).
+                load(bill.getPicUrl()).into(billBoardHeadPic);
         songUtil = SongUtil.getInstance(getApplicationContext());
         songUtil.getSongRanking(this, hand, 20, type);
     }
@@ -105,8 +116,7 @@ public class BillBoardListActivity extends AppCompatActivity implements AdapterV
             list.clear();
             list.addAll(billboard.getSongList());
             adapter.notifyDataSetChanged();
-            Glide.with(getApplicationContext()).
-                    load(billboard.getPicUrl()).into(billBoardHeadPic);
+
             setListViewHeightBasedOnChildren(billList);
         }
     };
@@ -143,10 +153,48 @@ public class BillBoardListActivity extends AppCompatActivity implements AdapterV
         }
 
     @Override
-    public void doMoreClick() {
-        Toast.makeText(this,"diankjdwi",Toast.LENGTH_SHORT).show();
+    public void doMoreClick(int position) {
+        popUpWindow=new RanklistPopUpWindow(BillBoardListActivity.this,list.get(position),this);
+        //显示窗口
+
+        popUpWindow.showAtLocation(BillBoardListActivity.this.findViewById(R.id.bill_activity),
+                Gravity.BOTTOM| Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
+        // 设置背景颜色变暗
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = 1f;
+        getWindow().setAttributes(lp);
+        popUpWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+
+            @Override
+            public void onDismiss() {
+                WindowManager.LayoutParams lp = getWindow().getAttributes();
+                lp.alpha = 1f;
+                getWindow().setAttributes(lp);
+            }
+        });
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.ranklist_1:
+                Toast.makeText(this,"下首播放",Toast.LENGTH_SHORT);
+                break;
+            case R.id.ranklist_2:
+                break;
+            case R.id.ranklist_5:
+                break;
+            case R.id.ranklist_6:
+                break;
+            case R.id.ranklist_7:
+                break;
+
+        }
+    }
+
+    @Override
     public void onBackPressed() {
-        moveTaskToBack(false);
+        super.onBackPressed();
+        finishAfterTransition();
     }
 }

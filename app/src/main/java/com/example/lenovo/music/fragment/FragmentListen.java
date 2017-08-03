@@ -89,7 +89,7 @@ public class FragmentListen extends Fragment implements View.OnClickListener{
         music_click_where4= (ImageView) view4.findViewById(R.id.music_click_where);
         View view5=view.findViewById(R.id.local_myCollection);
         music_click_image5= (ImageView) view5.findViewById(R.id.music_click_image);
-        music_click_image4.setImageResource(R.drawable.collection);
+        music_click_image5.setImageResource(R.drawable.collection);
         music_click_text5= (TextView) view5.findViewById(R.id.music_click_text);
         music_click_text5.setText("我的收藏");
         music_click_count5= (TextView) view5.findViewById(R.id.music_click_count);

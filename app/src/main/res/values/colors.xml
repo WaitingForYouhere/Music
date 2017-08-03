@@ -7,4 +7,7 @@
     <color name="colorLightRed">#f53e3e</color>
     <color name="colorGray">#555555</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="colorTheme">#ffce3d3a</color>
+    <color name="halfTranslucent">#1000</color>
+    <color name="translucent">#0fff</color>
 </resources>

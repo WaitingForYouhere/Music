@@ -32,11 +32,11 @@ public class FragmentSearchRadio extends Fragment implements AdapterView.OnItemC
     private List<Song> slist=new ArrayList<Song>();
     private ListView billboard;
     private BillBoardAdapter adapter;
+    private boolean isInit=true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -48,9 +48,18 @@ public class FragmentSearchRadio extends Fragment implements AdapterView.OnItemC
         adapter=new BillBoardAdapter(getContext(),R.layout.billboard_item,blist);
         billboard.setAdapter(adapter);
         billboard.setOnItemClickListener(this);
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(isInit){
         songUtil=SongUtil.getInstance(getContext().getApplicationContext());
         songUtil.getAllRank(getContext(),handler,3);
-        return view;
+        isInit=false;
+        }
+
     }
 
     Handler handler=new Handler(){
@@ -81,7 +90,12 @@ public class FragmentSearchRadio extends Fragment implements AdapterView.OnItemC
         SharedPreferences.Editor editor = share.edit();
         editor.putString("type",blist.get(position).getType()+"");
         editor.commit();
-        startActivity(intent);
+        intent.putExtra("billboard",blist.get(position));
+        View view1= ((ViewGroup) view).getChildAt(0);
+//        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+//                view1, "bill_board_head_pic");
+//        getActivity().startActivity(intent, options.toBundle());
+                startActivity(intent);
     }
 
 

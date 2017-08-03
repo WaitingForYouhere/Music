@@ -6,15 +6,35 @@
     <include
     android:id="@+id/local_music"
     layout="@layout/music_click_layout"/>
+    <TextView
+        android:layout_marginLeft="45dp"
+        android:layout_width="match_parent"
+        android:background="#dddddd"
+        android:layout_height="1px" />
     <include
     android:id="@+id/local_latest_play"
     layout="@layout/music_click_layout"/>
+    <TextView
+        android:layout_marginLeft="45dp"
+        android:layout_width="match_parent"
+        android:background="#dddddd"
+        android:layout_height="1px" />
     <include
     android:id="@+id/local_download_manager"
     layout="@layout/music_click_layout"/>
+    <TextView
+        android:layout_marginLeft="45dp"
+        android:layout_width="match_parent"
+        android:background="#dddddd"
+        android:layout_height="1px" />
     <include
     android:id="@+id/local_myRadio"
     layout="@layout/music_click_layout"/>
+    <TextView
+        android:layout_marginLeft="45dp"
+        android:layout_width="match_parent"
+        android:background="#dddddd"
+        android:layout_height="1px" />
     <include
     android:id="@+id/local_myCollection"
     layout="@layout/music_click_layout"/>

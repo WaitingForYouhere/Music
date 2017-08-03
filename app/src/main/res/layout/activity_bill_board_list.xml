@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/bill_activity"
     android:layout_height="match_parent"
     tools:context="com.example.lenovo.music.activity.BillBoardListActivity">
     <ScrollView
@@ -16,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
+            android:transitionName="billboardheadpic"
             android:id="@+id/bill_board_head_pic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

@@ -50,7 +50,7 @@ public class ImageBanerViewGroup extends ViewGroup {
     }
 
     public interface ImageBannerListener{
-        void ClickImageIndex(int pos);
+        public void ClickImageIndex(int pos);
     }
 
     private boolean isAuto=true;
@@ -120,7 +120,53 @@ public class ImageBanerViewGroup extends ViewGroup {
             invalidate();
         }
     }
+    int lastX;
+    int lastY;
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        int y = (int) ev.getY();
+        int top=this.getTop();
+        int bottom=this.getBottom();
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN: {
+                //不允许父容器拦截该事件
+                //parent为该View需要拦截滑动事件的那个父容器的引用
+                lastX= (int) ev.getX();
+                lastY= (int) ev.getY();
+                if(y>top&y<bottom){
+                    this.getParent().requestDisallowInterceptTouchEvent(true);
+                }else {
+                    this.getParent().requestDisallowInterceptTouchEvent(false);
+                }
+                break;
+            }
+            case MotionEvent.ACTION_MOVE: {
+                int dx=(int) ev.getX()-lastX;
+                int dy=(int) ev.getY()-lastY;
 
+                if(Math.abs(dx)<Math.abs(dy)){
+                    this.getParent().requestDisallowInterceptTouchEvent(false);
+                }else
+                if(y>top&y<bottom){
+                    this.getParent().requestDisallowInterceptTouchEvent(true);
+                }else {
+                    this.getParent().requestDisallowInterceptTouchEvent(false);
+                }
+
+                lastX= (int) ev.getX();
+                lastY= (int) ev.getY();
+                break;
+            }
+            case MotionEvent.ACTION_UP: {
+                break;
+            }
+            default:
+                break;
+        }
+
+
+        return super.dispatchTouchEvent(ev);
+    }
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -172,8 +218,11 @@ public class ImageBanerViewGroup extends ViewGroup {
                 break;
             case MotionEvent.ACTION_MOVE:
                 int movex=(int) event.getX();
-                isClick=false;
+
                 int distance=movex-x;
+                if(Math.abs(distance)>10){
+                    isClick=false;
+                }
                 scrollBy(-distance,0);
                 x=movex;
                 break;

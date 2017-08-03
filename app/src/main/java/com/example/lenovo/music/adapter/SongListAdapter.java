@@ -21,7 +21,7 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
  * Created by lenovo on 2017/3/22.
  */
 
-public class SongListAdapter extends ArrayAdapter<Song> implements View.OnClickListener{
+public class SongListAdapter extends ArrayAdapter<Song>{
 
     private int resourceId;
     private List<Song> list;
@@ -34,7 +34,7 @@ public class SongListAdapter extends ArrayAdapter<Song> implements View.OnClickL
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         Song song=list.get(position);
         ViewHolder viewHolder;
@@ -59,14 +59,16 @@ public class SongListAdapter extends ArrayAdapter<Song> implements View.OnClickL
                 80,0, RoundedCornersTransformation.CornerType.ALL)).into(viewHolder.playing);}
         viewHolder.songName.setText(song.getTitle());
         viewHolder.singer.setText(song.getSinger());
-        viewHolder.doManage.setOnClickListener(this);
+        viewHolder.doManage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.doMoreClick(position);
+            }
+        });
         return convertView;
     }
 
-    @Override
-    public void onClick(View v) {
-        listener.doMoreClick();
-    }
+
 
     class ViewHolder{
         private ImageView playing;
@@ -78,6 +80,6 @@ public class SongListAdapter extends ArrayAdapter<Song> implements View.OnClickL
         this.listener=omListener;
     }
     public interface OnDoMoreClickListener{
-        void doMoreClick();
+        void doMoreClick(int position);
     }
 }

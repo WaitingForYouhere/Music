@@ -78,6 +78,9 @@ public class SongUtil {
                                     String singer = realjsonObject.getString("artist_name");
                                     Tools.unicode2String(singer);
                                     song.setSinger(singer);
+                                    String hot = realjsonObject.getString("hot");
+                                    Tools.unicode2String(hot);
+                                    song.setHot(hot);
                                     String picUrl = realjsonObject.getString("pic_big");
                                     Tools.unicode2String(picUrl);
                                     song.setPicUrl(picUrl);

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/pup_up_layout"
+    android:layout_height="300dp">
+    <TextView
+        android:layout_margin="10dp"
+        android:id="@+id/ranklist_popup_songname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include android:id="@+id/ranklist_1" layout="@layout/ranklist_include"/>
+        <include android:id="@+id/ranklist_2" layout="@layout/ranklist_include"/>
+        <include android:id="@+id/ranklist_3" layout="@layout/ranklist_include"/>
+        <include android:id="@+id/ranklist_4" layout="@layout/ranklist_include"/>
+        <include android:id="@+id/ranklist_5" layout="@layout/ranklist_include"/>
+        <include android:id="@+id/ranklist_6" layout="@layout/ranklist_include"/>
+        <include android:id="@+id/ranklist_7" layout="@layout/ranklist_include"/>
+    </LinearLayout>
+
+</LinearLayout>

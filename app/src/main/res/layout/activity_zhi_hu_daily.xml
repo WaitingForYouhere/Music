@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_zhi_hu_daily"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="5dp"
+    tools:context="com.example.lenovo.music.activity.ZhiHuDailyActivity">
+    <WebView
+        android:id="@+id/zhihu_daily_webview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></WebView>
+</RelativeLayout>

@@ -1,15 +1,17 @@
 package com.example.lenovo.music.myview;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
 import com.example.lenovo.music.R;
+import com.example.lenovo.music.bean.Daily;
 
 import java.util.List;
 
@@ -47,9 +49,9 @@ public class ImageBanerFramLayout extends FrameLayout implements ImageBanerViewG
         InitImageBanerViewGroup();
         InitDotLinearLayout();
     }
-    public void addBitmaps(List<Bitmap> list){
+    public void addBitmaps(List<Daily> list){
         for(int i=0;i<list.size();i++){
-            Bitmap bitmap=list.get(i);
+            String bitmap=list.get(i).getImagePaht();
             addBitmapsToImagebanerFramLayout(bitmap);
             addDotToImageBanerFramLayout();
         }
@@ -66,11 +68,12 @@ public class ImageBanerFramLayout extends FrameLayout implements ImageBanerViewG
         linearLayout.addView(iv);
     }
 
-    private void addBitmapsToImagebanerFramLayout(Bitmap bitmap) {
+    private void addBitmapsToImagebanerFramLayout(String bitmap) {
         ImageView iv=new ImageView(getContext());
         iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
         iv.setLayoutParams(new ViewGroup.LayoutParams(C.witth, ViewGroup.LayoutParams.WRAP_CONTENT));
-        iv.setImageBitmap(bitmap);
+        Glide.with(getContext()).load(bitmap).into(iv);
+//        iv.setImageBitmap(bitmap);
         imageBanerViewGroup.addView(iv);
     }
 
@@ -112,6 +115,7 @@ public class ImageBanerFramLayout extends FrameLayout implements ImageBanerViewG
 
     @Override
     public void ClickImageIndex(int pos) {
+        Log.e("TAGbannerLayout", "onTouchEvent: "+pos);
         listener.ClickImageIndex(pos);
     }
     public interface FramLayoutListener{

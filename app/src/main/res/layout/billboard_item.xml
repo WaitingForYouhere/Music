@@ -5,6 +5,7 @@
     android:orientation="horizontal"
     android:layout_height="wrap_content">
 <ImageView
+    android:transitionName="billboardheadpic"
     android:id="@+id/bill_pic"
     android:layout_width="120dp"
     android:layout_height="120dp" />

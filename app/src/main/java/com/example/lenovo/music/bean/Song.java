@@ -19,6 +19,15 @@ public class Song implements Serializable{
     private String fileUrl;
     private String lrcLink;
     private String picUrl;
+    private String hot;
+
+    public String getHot() {
+        return hot;
+    }
+
+    public void setHot(String hot) {
+        this.hot = hot;
+    }
 
     public String getPicUrl() {
         return picUrl;
